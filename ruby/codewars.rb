@@ -67,3 +67,58 @@ def isTriangle(a,b,c)
    a, b, c = [a, b, c].sort
    a + b > c
 end
+
+#
+# Description:
+#
+# Your task is to create a function - basic_op().
+#
+# The function should take three arguments - operation(string/char), value1(number), value2(number). The function should return result of numbers after applying the chosen operation.
+
+# my solution -_-
+def basic_op(operator, value1, value2)
+ case operator
+ when  "+"
+   return value1 + value2
+ when  "-"
+  return value1 - value2
+ when  "/"
+  return value1 / value2
+ when "*"
+  return value1 * value2
+ end
+end
+# best way
+def basic_op(operator, value1, value2)
+  value1.send (operator, value2)
+end
+
+
+
+# discription
+# Invert a given list of integer values.
+#
+# Python/JS/PHP:
+#
+# invert([1,2,3,4,5]) == [-1,-2,-3,-4,-5]
+# invert([1,-2,3,-4,5]) == [-1,2,-3,4,-5]
+# invert([]) == []
+
+# solution
+# My solution :)
+def invert(list)
+invertlist = []
+  list.each do |x|
+    invertlist.push(- x)
+  end
+  return invertlist
+end
+
+# best
+def invert(list)
+  list.map(&:-@)
+end
+# or
+def invert(list)
+  list.map { |x| x * -1 }
+end
