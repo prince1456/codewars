@@ -122,3 +122,30 @@ end
 def invert(list)
   list.map { |x| x * -1 }
 end
+
+
+
+# Description:
+#
+# This series of katas will introduce you to basics of doing geometry with computers.
+#
+# Point objects have x and y attributes.
+#
+# Write a function calculating distance between Point a and Point b.
+#
+# Tests round answers to 6 decimal places.
+
+# my solution :) :)
+def distance_between_points(a, b)
+    return Math.sqrt((a[0] - b[0])**2 + (a[1] - b[1])**2 )
+end
+
+# others 0_o
+
+def distance_between_points(a,b)
+  distance = 0
+  a.each_with_index do |a, index|
+    distance += (a - b[index]) **2
+  end
+  Math.sqrt(distance)
+end
