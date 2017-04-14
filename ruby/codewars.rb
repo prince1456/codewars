@@ -149,3 +149,23 @@ def distance_between_points(a,b)
   end
   Math.sqrt(distance)
 end
+
+# Create a function that takes an integer as an argument and returns "Even" for even numbers or "Odd" for odd numbers.
+  # -_- mine
+def even_or_odd(number)
+   number % 2 == 0 ? (return "Even") : (return "Odd")
+end
+
+
+# others :)
+def even_or_odd(number)
+  number.even? ? "Even" : "Odd"
+end
+
+
+# Write function RemoveExclamationMarks which removes all exclamation marks from a given string.
+# :)
+
+def remove_exclamation_marks(s)
+  s.delete("!")
+end
