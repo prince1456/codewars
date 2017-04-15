@@ -199,3 +199,8 @@ end
 def string_to_array(string)
   string.split(" ")
 end
+
+# Return the closest number multiple of 10
+def closest_multiple_10(i)
+  i.round(-1)
+end
