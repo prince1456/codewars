@@ -220,3 +220,29 @@ def high_and_low(numbers)
     a = numbers.split(" ").map(&:to_i).sort
     return "#{a.max} #{a.min}"
 end
+
+#
+#
+# Is a number prime?
+# Define a function isPrime that takes one integer argument and returns true or false depending on if the integer is a prime.
+#
+# Per Wikipedia, a prime number (or a prime) is a natural number greater than 1 that has no positive divisors other than 1 and itself.
+#
+# Example
+#
+# isPrime(5)
+# => true
+# Test if number is prime
+def isPrime(num)
+  if num < 2
+    return false
+  elsif num === 2
+    return true
+  else
+   for i in 2...num
+     if num % i ===0
+       return false
+       end
+    end
+    return true
+  end
