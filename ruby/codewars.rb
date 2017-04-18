@@ -246,3 +246,28 @@ def isPrime(num)
     end
     return true
   end
+
+  #
+  # This time no story, no theory. The examples below show you how to write function accum:
+  #
+  # Examples:
+  #
+  # accum("abcd")    # "A-Bb-Ccc-Dddd"
+  # accum("RqaEzty") # "R-Qq-Aaa-Eeee-Zzzzz-Tttttt-Yyyyyyy"
+  # accum("cwAt")    # "C-Ww-Aaa-Tttt"
+  # my way :)
+
+  def accum(s)
+    array = s.split("")
+    newarr = []
+      array.each_with_index do |x, i|
+        element = x * (i + 1)
+        newarr << element.capitalize
+      end
+   return newarr.join("-")
+  end
+
+  # best way o_o
+def accum(s)
+  s.chars.each_with_index.map{ |c, i| c.upcase + c.downcase * i }.join('-')
+end
