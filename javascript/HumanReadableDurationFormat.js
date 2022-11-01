@@ -102,8 +102,31 @@ function formatDuration(seconds) {
   
   return resultText;
 }
+
+
+
+// smart way and best practice :(
+
+function formatDuration2 (seconds) {
+    var time = { year: 31536000, day: 86400, hour: 3600, minute: 60, second: 1 },
+        res = [];
+  
+    if (seconds === 0) return 'now';
+    
+    for (var key in time) {
+      if (seconds >= time[key]) {
+        var val = Math.floor(seconds/time[key]);
+        res.push(val += val > 1 ? ' ' + key + 's' : ' ' + key);
+        seconds = seconds % time[key];
+      }
+    }
+   
+    return res.length > 1 ? res.join(', ').replace(/,([^,]*)$/,' and'+'$1') : res[0]
+  }
+
 console.log(formatDuration(15731080));
 console.log(formatDuration(162));
 console.log(formatDuration(62));
+
 
 
