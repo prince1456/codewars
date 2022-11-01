@@ -1,115 +1,109 @@
 function addAnd(isPlural, isZero, type) {
-    return `${isPlural ? `${types[type].plural} ` : types[type].singular}${
-      isZero ? "" : " and "
-    }`;
+  return `${isPlural ? `${types[type].plural} ` : types[type].singular}${
+    isZero ? "" : " and "
+  }`;
+}
+
+function formatDuration(seconds) {
+  if (seconds === 0) {
+    return "now";
   }
-  
-  function formatDuration(seconds) {
-    console.log({seconds})
-    if (seconds === 0) {
-      return "now";
+  const yearInSecond = 31536000;
+  const dayInSecond = 86400;
+  const hourInSecond = 3600;
+  const minuteInSecond = 60;
+  const types = {
+    minute: { plural: "minutes", singular: "minute" },
+    second: { plural: "seconds", singular: "second" },
+    hour: { plural: "hours", singular: "hour" },
+    year: { plural: "years", singular: "year" },
+    day: { plural: "days", singular: "day" },
+  };
+  const array = [];
+  function calculateYears() {
+    const numberOfYears = Math.floor(seconds / yearInSecond);
+    if (seconds >= yearInSecond) {
+      array.push(
+        numberOfYears > 1
+          ? `${numberOfYears} ${types.year.plural}`
+          : `${numberOfYears} ${types.year.singular}`
+      );
     }
-    const yearInSecond = 31536000;
-    const dayInSecond = 86400;
-    const hourInSecond = 3600;
-    const minuteInSecond = 60;
-    let text = "";
-    const types = {
-      minute: { plural: "minutes", singular: "minute" },
-      second: { plural: "seconds", singular: "second" },
-      hour: { plural: "hours", singular: "hour" },
-      year: { plural: "years, ", singular: "year, " },
-      day: { plural: "days, ", singular: "day, " },
-    };
-  
-    function calculateYears() {
-      const numberOfYears = Math.floor(seconds / yearInSecond);
-      if (seconds != 0 && seconds % yearInSecond === 0) {
-          text = `${numberOfYears} ${numberOfYears > 1  ? 'days' : 'day'}`
-      }
-   
-      if (seconds > yearInSecond) {
-          text = `${text}${numberOfYears} ${
-            numberOfYears > 1 ? `${types.year.plural}` : types.year.singular
-          }`;
-        }
-      seconds = seconds - numberOfYears * yearInSecond;
-    
+    seconds = seconds - numberOfYears * yearInSecond;
+  }
+
+  function calculateDays() {
+    const numberOfDays = Math.floor(seconds / dayInSecond);
+    if (seconds >= dayInSecond) {
+      array.push(
+        numberOfDays > 1
+          ? `${numberOfDays} ${types.day.plural}`
+          : `${numberOfDays} ${types.day.singular}`
+      );
     }
-  
-    function calculateDays() {
-      const numberOfDays = Math.floor(seconds / dayInSecond);
-      if (seconds != 0 && seconds % dayInSecond === 0) {
-          text = `${numberOfDays} ${numberOfDays > 1  ? 'days' : 'day'}`
-      }
-      if (seconds > dayInSecond) {
-          text = `${text}${numberOfDays} ${
-            numberOfDays > 1 ? `${types.day.plural}` : types.day.singular
-          }`;
-        }
-      seconds = seconds - numberOfDays * dayInSecond;
+    seconds = seconds - numberOfDays * dayInSecond;
+  }
+  function calculateHours() {
+    const numberOfHours = Math.floor(seconds / hourInSecond);
+    if (seconds >= numberOfHours) {
+      array.push(
+        numberOfHours > 1
+          ? `${numberOfHours} ${types.hour.plural}`
+          : `${numberOfHours} ${types.hour.singular}`
+      );
     }
-    function calculateHours() {
-      const numberOfHours = Math.floor(seconds / hourInSecond);
-      if(seconds > hourInSecond) {
-        text = `${text}${numberOfHours} ${
-          numberOfHours > 1 ? `${types.hour.plural}` : types.hour.singular
-        }`;
-      }
-      if (seconds != 0 && seconds % hourInSecond === 0) {
-          text = `${numberOfHours} ${numberOfHours > 1  ? 'hours' : 'hour'}`
-      } 
-  
-      seconds = seconds - numberOfHours * hourInSecond;
-    //  add , or and 
-    }
-    function calculateMinutes() {
-      const numberOfMinutes = Math.floor(seconds / minuteInSecond);
-      if( text.length > 0, text.includes("hour") ) {
-        text = `${seconds / minuteInSecond}`.includes('.') ? text + ', ' : text + ' and '
-    }
-      if (seconds !== 0 && seconds % minuteInSecond === 0) {
-        text = text +`${numberOfMinutes} ${numberOfMinutes > 1  ? 'minutes' : 'minute'}`
-      }
-      else if (seconds > minuteInSecond) {
-      
-        text = `${text}${numberOfMinutes} ${
-          numberOfMinutes > 1 ? `${types.minute.plural} and ` : types.minute.singular + ' and '
-        }`;
-      }
-      seconds = seconds - numberOfMinutes * minuteInSecond;
-    }
-    function calculateSeconds () {
-      if (seconds < minuteInSecond && seconds > 0) {
-          text = `${text}${seconds} ${
-            seconds > 1 ? `${types.second.plural}` : types.second.singular
-          }`;
-        }
+    seconds = seconds - numberOfHours * hourInSecond;
+  }
+  function calculateMinutes() {
+    const numberOfMinutes = Math.floor(seconds / minuteInSecond);
+    if (seconds >= numberOfMinutes && numberOfMinutes !== 0) {
+      array.push(
+        numberOfMinutes > 1
+          ? `${numberOfMinutes} ${types.minute.plural}`
+          : `${numberOfMinutes} ${types.minute.singular}`
+      );
     }
 
-
-    seconds >= yearInSecond && calculateYears();
-    seconds >= dayInSecond && calculateDays();
-    seconds >= hourInSecond && calculateHours();
-    seconds !== 0 && seconds !== minuteInSecond && calculateMinutes();
-    calculateSeconds();
-  
-  
-    // if(seconds >= minuteInSecond) {
-    //     const numberOfMinutes = Math.floor(seconds / minuteInSecond)
-    //     const isZero = seconds - numberOfMinutes * minuteInSecond === 0
-    //     text = `${text}${numberOfMinutes} ${addAnd(numberOfMinutes > 1, isZero, 'minute')}`
-    //     seconds = seconds - numberOfMinutes * minuteInSecond
-    // }
-    // if(seconds < 60 && seconds > 0) {
-    //     text = `${text}${seconds} ${addAnd(seconds > 1, true, 'second')}`;
-    // }
-    // console.log("1xasdsa", text.trim())
-    return text.trim();
+    seconds = seconds - numberOfMinutes * minuteInSecond;
   }
-//   console.log(formatDuration(3600));
-//   console.log(formatDuration(3662));
-  console.log(formatDuration(4668898));
+  function calculateSeconds() {
+    array.push(
+      seconds > 1
+        ? `${seconds} ${types.second.plural}`
+        : `${seconds} ${types.second.singular}`
+    );
+  }
+
+  seconds >= yearInSecond && calculateYears();
+  seconds >= dayInSecond && calculateDays();
+
+  seconds >= hourInSecond && calculateHours();
+  seconds !== 0 && seconds !== minuteInSecond && calculateMinutes();
+  seconds !== 0 && calculateSeconds();
+  let resultText = "";
+  function formatText() {
+    if (array.length === 1) {
+      resultText = array[0];
+    }
+    if (array.length === 2) {
+      resultText = `${array[0]} and ${array[1]}`;
+    }
+    if (array.length === 3) {
+      resultText = `${array[0]}, ${array[1]} and ${array[2]}`;
+    }
+    if (array.length === 4) {
+      resultText = `${array[0]}, ${array[1]}, ${array[2]} and ${array[3]}`;
+    }
+    if (array.length === 5) {
+      resultText = `${array[0]}, ${array[1]}, ${array[2]}, ${array[3]} and ${array[4]}`;
+    }
+  }
+  formatText();
   
-  //  "1 minute and 2 seconds"
-  
+  return resultText;
+}
+console.log(formatDuration(15731080));
+console.log(formatDuration(162));
+console.log(formatDuration(62));
+
+
