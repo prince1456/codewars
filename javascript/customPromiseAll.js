@@ -14,4 +14,9 @@ const customPromiseAll = (promises) => {
   });
 };
 
-Promise.all([Promise.resolve("Hello"), Promise.resolve("Linkedin")]);
+Promise.all([
+    Promise.resolve("Hello"),
+    Promise.resolve("Linkedin")
+]);
+
+
