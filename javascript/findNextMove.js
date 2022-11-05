@@ -31,6 +31,9 @@ const grid = [
     [0,1,1,0,1,0]
 ]
 
+return [[2, 2], [3, 1 ]]
+y = 2
+x= 3
   function possibleMoves(x, y) {
     const newGrid = grid.slice(startPoint, endPoint)
     const result = []
