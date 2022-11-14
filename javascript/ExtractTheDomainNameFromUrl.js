@@ -5,6 +5,11 @@ function domainName(url) {
 }
 
 // second solution
+/**
+ * It takes a url and returns the domain name.
+ * @param url - The URL to be parsed.
+ * @returns The domain name of the url.
+ */
 function domainName2(url) {
   return url
     .replace("http://", "")
